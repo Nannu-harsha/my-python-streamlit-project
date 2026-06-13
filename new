@@ -1,0 +1,22 @@
+import streamlit as st
+import requests as req
+
+st.title("🌤️ Weather Chatbot")
+
+city = st.text_input("Enter a city name")
+
+if st.button("Get Weather"):
+
+    url = f"https://wttr.in/{city}?format=j1"
+
+    response = req.get(url)
+
+    data = response.json()
+
+    temperature = data["current_condition"][0]["temp_C"]
+    weather = data["current_condition"][0]["weatherDesc"][0]["value"]
+    humidity = data["current_condition"][0]["humidity"]
+
+    st.write(f"🌡️ Temperature: {temperature}°C")
+    st.write(f"☁️ Weather: {weather}")
+    st.write(f"💧 Humidity: {humidity}%")
